@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-node-example
+  labels:
+    app: k8s-node-example
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: k8s-node-example
+  template:
+    metadata:
+      labels:
+        app: k8s-node-example
+    spec:
+      containers:
+      - name: k8s-node-example
+        image: compilenix/k8s-node-example
+        ports:
+        - containerPort: 8080
+          protocol: TCP
