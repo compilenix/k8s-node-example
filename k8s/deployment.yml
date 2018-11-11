@@ -14,9 +14,27 @@ spec:
       labels:
         app: k8s-node-example
     spec:
+      terminationGracePeriodSeconds: 3
       containers:
       - name: k8s-node-example
         image: compilenix/k8s-node-example
+        resources:
+          limits:
+            cpu: 100m
+            memory: 50Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi
         ports:
         - containerPort: 8080
           protocol: TCP
+        livenessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 2
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 5
